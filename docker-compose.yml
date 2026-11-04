@@ -1,0 +1,18 @@
+services:
+  opencode-env:
+    build: ./opencode-build
+    container_name: opencode-dev
+    restart: unless-stopped
+    volumes:
+      - ./workspace:/workspace
+      - ./opencode-files/opencode-data:/home/opencode-dev/.local/share/opencode
+      - ./opencode-files/opencode-state:/home/opencode-dev/.local/state/opencode
+      - ./opencode-files/opencode-cache:/home/opencode-dev/.cache/opencode
+      - ./opencode-files/opencode-config:/home/opencode-dev/.config/opencode
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /workspace
+    group_add:
+      - "973"
+    network_mode: host
+    stdin_open: true
+    tty: true

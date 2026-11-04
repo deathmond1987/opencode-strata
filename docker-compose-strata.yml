@@ -1,0 +1,33 @@
+services:
+  strata:
+    image: ${STRATA_IMAGE:-ghcr.io/niko1221/strata:0.2.7-cuda13}
+    container_name: strata
+    restart: unless-stopped
+    ports:
+      - "${STRATA_BIND:-0.0.0.0}:${STRATA_PORT:-8080}:8080"      # 127.0.0.1 = this computer only. 0.0.0.0 = your network: keep the API key then.
+    environment:
+      MODEL: ${MODEL:-}                      # empty: Strata picks the one it recommends for your card, and says so in the log
+      MODEL_PATH: ${MODEL_PATH:-}            # GGUF files you already have, as seen inside the container (mount them below)
+#      CONTEXT: ${CONTEXT:-32k}
+      PARALLEL: ${PARALLEL:-}                # empty: fit to the card
+      VISION: ${VISION:-off}                 # on: the model reads pictures (about 0.9 GB more to download)
+      TUNE: ${TUNE:-skip}                    # quick: up to about 20 minutes, once, then kept
+      API_KEY: "sk-strata-yhlgrrWsqXKw5BZnZH50hR2ZSWipOlaE"                  # empty: made on the first start; docker exec strata strata launch --show-key
+      CONTEXT: 64k                  # Жестко задаем размер контекста 64k
+      KV: int8
+      # GPUS: "0,1"                          # several cards: which ones
+    volumes:
+      - ./strata-data:/data                    # the model, presets, tuning, the key. Survives updates of the image.
+      # - /srv/gguf/IQ3_XXS:/models:ro       # GGUF files you already have (then also set MODEL_PATH: /models)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all                     # or: device_ids: ["0"]
+              capabilities: [gpu]
+    # the short form of the same: gpus: all
+    ulimits:
+      memlock: { soft: -1, hard: -1 }        # the engine pins tens of GB of RAM
+    shm_size: 2gb
+    stop_grace_period: 2m                    # the model drains and unloads on docker stop

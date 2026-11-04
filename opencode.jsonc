@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "strata/qwen3.8-flash-next-iq3_xxs",
+  "lsp": true,
+  "provider": {
+    "strata": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Strata Engine",
+      "limit": {
+        "context": 65536,
+        "output": 8192
+      },
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1",
+        "apiKey": "sk-strata-yhlgrrWsqXKw5BZnZH50hR2ZSWipOlaE"
+      },
+      "models": {
+        "qwen3.8-flash-next-iq3_xxs": {
+          "name": "Qwen 3.8 Flash Next"
+        }
+      }
+    }
+  }
+}

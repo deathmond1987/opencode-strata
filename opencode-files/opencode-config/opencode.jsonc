@@ -1,7 +1,67 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "strata/qwen3.8-flash-next-iq3_xxs",
-  "lsp": true,
+  "model": "strata/local-model",
+  "lsp": {
+    "clangd": {
+      "command": ["clangd"]
+    },
+    "rust": {
+      "command": ["rust-analyzer"]
+    },
+    "gopls": {
+      "command": ["gopls"]
+    },
+    "zls": {
+      "command": ["zls"]
+    },
+    "pyright": {
+      "command": ["pyright-langserver", "--stdio"]
+    },
+    "typescript": {
+      "command": ["typescript-language-server", "--stdio"]
+    },
+    "bash": {
+      "command": ["bash-language-server", "start"]
+    },
+    "lua-ls": {
+      "command": ["lua-language-server"]
+    },
+    "yaml-ls": {
+      "command": ["yaml-language-server", "--stdio"]
+    },
+    "dockerfile": {
+      "command": ["docker-langserver", "--stdio"],
+      "extensions": [".dockerfile", "Dockerfile"]
+    },
+    "ansible": {
+      "command": ["ansible-language-server", "--stdio"],
+      "extensions": [".yml", ".yaml"]
+    },
+    "html": {
+      "command": ["vscode-html-language-server", "--stdio"],
+      "extensions": [".html"]
+    },
+    "css": {
+      "command": ["vscode-css-language-server", "--stdio"],
+      "extensions": [".css"]
+    },
+    "json": {
+      "command": ["vscode-json-language-server", "--stdio"],
+      "extensions": [".json"]
+    },
+    "markdown": {
+      "command": ["vscode-markdown-language-server", "--stdio"],
+      "extensions": [".md"]
+    },
+    "tailwindcss": {
+      "command": ["tailwindcss-language-server", "--stdio"],
+      "extensions": [".css"]
+    },
+    "emmet": {
+      "command": ["emmet-ls", "--stdio"],
+      "extensions": [".html", ".css"]
+    }
+  },
   "provider": {
     "strata": {
       "npm": "@ai-sdk/openai-compatible",
@@ -11,14 +71,15 @@
         "output": 8192
       },
       "options": {
-        "baseURL": "http://127.0.0.1:8080/v1",
-        "apiKey": "sk-strata-yhlgrrWsqXKw5BZnZH50hR2ZSWipOlaE"
+        "baseURL": "http://172.2.0.1:8080/v1",
+        "apiKey": "{env:STRATA_API_KEY}"
       },
       "models": {
-        "qwen3.8-flash-next-iq3_xxs": {
-          "name": "Qwen 3.8 Flash Next"
+        "local-model": {
+          "name": "local-model"
         }
       }
     }
   }
 }
+

@@ -3,6 +3,8 @@ services:
     build: ./opencode-build
     container_name: opencode-dev
     restart: unless-stopped
+    environment:
+      STRATA_API_KEY: "sk-strata-yhlgrrWsqXKw5BZnZH50hR2ZSWipOlaE"
     volumes:
       - ./workspace:/workspace
       - ./opencode-files/opencode-data:/home/opencode-dev/.local/share/opencode

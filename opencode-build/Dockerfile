@@ -29,7 +29,8 @@ RUN apk add --no-cache \
     py3-pip \
     python3-dev \
     fzf \
-    github-cli
+    github-cli \
+    libstdc++
 
 RUN npm install -g \
     pyright \
@@ -37,8 +38,12 @@ RUN npm install -g \
     typescript-language-server \
     bash-language-server \
     @ansible/ansible-language-server \
-    opencode-ai
-
+    opencode-ai \
+    @tailwindcss/language-server \
+    emmet-ls \
+    vscode-langservers-extracted \
+    @biomejs/biome
+    
 RUN adduser -D -u 1000 -h /home/opencode-dev opencode-dev
 
 RUN mkdir -p /home/opencode-dev/.config/opencode && \

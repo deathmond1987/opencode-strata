@@ -10,6 +10,7 @@ services:
       - ./opencode-files/opencode-cache:/home/opencode-dev/.cache/opencode
       - ./opencode-files/opencode-config:/home/opencode-dev/.config/opencode
       - /var/run/docker.sock:/var/run/docker.sock
+#      - /opencode-files/opencode-tmp:/tmp
     working_dir: /workspace
     group_add:
       - "973"
